@@ -1,7 +1,6 @@
 ---
 title: Spark性能调优
 tags: Spark
-date: 2016-11-17 10:26:51
 ---
 
 # 前言
@@ -192,15 +191,85 @@ yarn.nodemanager.resource.cpu-vcores 参数控制每个Yarn容器能使用的CPU
 Spark向Yarn申请内存时比申请CPU要复杂。
 
 - --executor-memory 控制的是executor的堆大小，但是每个executor还需要使用额外的内存空间来做缓存。
-- spark.yarn.executor.memoryOverhead 用于控制向Yarn申请的额外的内存。它的默认值等于：max(384*0.7, spark.executor.memory)
+- spark.yarn.executor.memoryOverhead 用于控制向Yarn申请的额外的内存。它的默认值等于：max(384, 0.07 * spark.executor.memory)
 - yarn.scheduler.minimum-allocation-mb 控制一个yarn容器最小分配的内存
 
-[Spark内存申请](/images/spark-tuning2-f1.png)
+![Spark内存申请](/images/spark-tuning2-f1.png)
 
-## 如何分配
+## 分配原则
+
+1. Spark的application master也需要占用资源。在yarn-client模式下，默认占用1个CPU核和1G内存。在yarn-cluster模式下，application
+master就是driver，由于application master同时也可能跑executor，因此要通过 --driver-memory 和 --driver-cores来为driver预留
+足够的程序。
+2. 不应该为一个executor分配太多的内存，这样反而会引起垃圾回收的延时。一般一个executor分配的内存最大不超过64G
+3. 一个executor一般分配不超过5个CPU核心，太多的话可能会使得hadoop写入文件阻塞（希望后来没有这个问题 !)
+4. 尽量不要分配一个executor只有一个CPU内核，然后在一台机器上创建很多个executor。主要有两个坏处：
+    - broadcast是建立在executor上的，太多executor导致太多的广播变量
+    - 每个executor都会占用一个额外的内存开销
+5. 永远要预留一个CPU内核和一定的内存供操作系统使用
 
 ## 实例
 
+假设一个集群有6台机器，每台机器有16核，64G内存，那么该如何分配资源呢？
+
+首先给yarn分配资源：
+
+yarn.nodemanager.resource.cpu-vcores 15
+yarn.nodemanager.resource.memory-mb  63G
+
+要为系统进程预留1个核和1G的内存。
+
+
+然后给spark的executor分配CPU和内存。一种最直接的分配方案：
+
+--num-executors=6  --executor-cores=15 --executor-memory=63G
+
+也就是每天机器创建一个executor，每个executor占用15个核心，63G内存。但这是一个不可行的方案。首先每个executor分配15个核心，会导致HDFS
+被阻塞，而且一个executor占用63G内存，加上额外的开销就超过63G了。
+
+一种优化的方案为：
+
+--num-executors=17  --executor-cores=5 --executor-memory=19
+
+- 每个executor占用5个核心。--executor-cores=5
+- 每个机器可以有 15 / 5 = 3 个executor, 6台机器一共可以创建18个executor，但是我们要除去application master， 因此共有18-1=17个executor
+- 每天机器上的3个executor，每个executor可以分配到 63 / 3 = 21 G内存，但是 21G应该是包含了额外的开销的，假设额外开销为 0.07 * X
+  0.07 * X + X = 21, X = 19.6, 向下舍去，为19G
+
+这样的分配不仅可以充分利用资源，而且一般不会出现内存溢出的情况。
+
+
+#优化三：使用更高效的数据存储
+
+例如使用parquet替代CSV，JSON，使用KryoSerializer替代默认的Java Serializer。这里不做重点介绍。
+
+#优化四：增加并行度
+
+一般来说，在一个Stage里，task的数目和父亲RDD的partition数据是一样的 ，产生的子RDD的partition数目也是一样的。
+
+但是有些操作，可以改变子RDD的partition数目：
+
+- coalesce可以将父亲RDD的分区数目压缩
+- union操作产生的RDD分区数目是两个父亲RDD分区的和。
+- catesian产生的RDD分区数据是两个父亲RDD分区的乘积。
+
+分区的数据，决定了Job并行执行的程度。如果有100机器，但是数据只有2个分区，那么一次就只有2个task在执行，其它机器都在空转。
+
+分区太少，会使得单个task要执行的数据过多，占用的时间和空间也较大。那么到底分多少个分区合适呢？
+
+第一种办法就是不断的尝试逼近：找到父亲RDD的分区数目，然后不断乘以1.5，知道发现性能无法获得提升为止。但是这种办法在显示中不太可行，
+因为你不太可能一次次的去跑同样的job。
+
+另外一种尝试就是，根据系统的CPU，内存结合程序的特点来大概计算，但是很难量化。
+
+总的原则就是：多些分区要比少分区要好，因为在spark里创建task是很便宜的。
+
+
+
+# 参考资料
+
+- http://blog.cloudera.com/blog/2015/03/how-to-tune-your-apache-spark-jobs-part-1/
+- http://blog.cloudera.com/blog/2015/03/how-to-tune-your-apache-spark-jobs-part-2/
 
 
 
