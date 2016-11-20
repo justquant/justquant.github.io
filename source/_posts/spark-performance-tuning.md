@@ -157,7 +157,7 @@ rdd1和rdd2都使用reduceByKey()并且没有指定partitioner，那么他们使
 第三次：将partition数目较少的RDD进行shuffle，使得和partition数据较多的RDD partition数目一样，然后再进行join。
 
 
-#优化2：合理分配计算资源
+# 优化2：合理分配计算资源
 
 除了尽量避免shuffle的产生或者减少shuffle的数据量，还需要为每个executor分配正确的资源。Spark管理的资源主要有CPU和内存。
 对于网络和IO等资源，Spark并没有提供主动的管理。
@@ -239,11 +239,11 @@ yarn.nodemanager.resource.memory-mb  63G
 这样的分配不仅可以充分利用资源，而且一般不会出现内存溢出的情况。
 
 
-#优化三：使用更高效的数据存储
+# 优化三：使用更高效的数据存储
 
 例如使用parquet替代CSV，JSON，使用KryoSerializer替代默认的Java Serializer。这里不做重点介绍。
 
-#优化四：增加并行度
+# 优化四：增加并行度
 
 一般来说，在一个Stage里，task的数目和父亲RDD的partition数据是一样的 ，产生的子RDD的partition数目也是一样的。
 

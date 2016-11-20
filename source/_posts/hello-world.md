@@ -1,38 +1,25 @@
 ---
 title: 你好，世界
 ---
-Welcome to [Hexo](https://hexo.io/)! This is your very first post. Check [documentation](https://hexo.io/docs/) for more info. If you get any problems when using Hexo, you can find the answer in [troubleshooting](https://hexo.io/docs/troubleshooting.html) or you can ask me on [GitHub](https://github.com/hexojs/hexo/issues).
 
-## Quick Start
+在我学习每一门编程语言，第一个程序都是Hello World! 当我决定重新开始写博客，我想第一遍文章也是 **你好，世界**。
 
-### Create a new post abc
+为什么想写博客？想安静。想回忆，想分享。
 
-``` bash
-$ hexo new "My New Post"
-```
+想静下来。常常有一种感觉，就是明天昨天发生的事情，却只有一个模糊的影响，很多细节都记不清楚。生活的脚步匆匆，灵魂一直在奔忙。
 
-More info: [Writing](https://hexo.io/docs/writing.html)
+我想，我需要慢下来。而写作，在构思的过程中，能让我的思绪静下来，让我收获宁静。
 
-### Run server
+想回忆，就是想着，有一天自己回过头去看看自己走过的路，有一个地方，帮我存着。
 
-``` bash
-$ hexo server
-```
+想分享。自己在IT领域工作已经有10个年头了，虽然不是什么大牛，却多多少少一些经验可以去分享。只要能惠及一个人，也就知足了。
 
-More info: [Server](https://hexo.io/docs/server.html)
+找了很多博客例如CSDN等，最后还是自己搭建。不求很多人知道，我只想有那么一个角落，让我自己静静的与自己对话。
 
-### Generate static files
+就这样，我相遇了Hexo。感谢开源世界哪些默默奉献的人，你们的分享这个世界更美好。
 
-``` bash
-$ hexo generate
-```
+最后为什么把博客取名为Justquant, 因为我有一个梦想，或许是一个白日梦。就是能成为一名宽客，养一个机器人，让它为我在金融市场挖矿，而我，就去环游世界。
 
-More info: [Generating](https://hexo.io/docs/generating.html)
+**感谢[Hexo](https://hexo.io/)! 感谢[Github](https://github.com/)**
 
-### Deploy to remote sites
 
-``` bash
-$ hexo deploy
-```
-
-More info: [Deployment](https://hexo.io/docs/deployment.html)
