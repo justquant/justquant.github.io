@@ -1,0 +1,201 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>scikit-learn笔记——准备数据 | Justquant</title>
+  <meta name="author" content="Justquant">
+  
+  <meta name="description" content="种一棵树最好的时间，是十年前和现在
+
+终于决定踏入机器学习的世界。只为了那个梦想：养一个机器人在金融市场挖矿，然后去环游世界。
+选择scikit-learn，是因为python已经成为事实上的数据分析和挖掘的语言，是很多数据科学家的首选。而且scikit-learn还可以与Spark集成，感谢Dat">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="scikit-learn笔记——准备数据"/>
+  <meta property="og:site_name" content="Justquant"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="Justquant" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Justquant</a></h1>
+  <h2><a href="/">尽宽</a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2016-11-22T06:25:01.000Z"><a href="/2016/11/22/scikitleanr-preparing-data/">2016-11-22</a></time>
+      
+      
+  
+    <h1 class="title">scikit-learn笔记——准备数据</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <blockquote>
+<p>种一棵树最好的时间，是十年前和现在</p>
+</blockquote>
+<p>终于决定踏入机器学习的世界。只为了那个梦想：养一个机器人在金融市场挖矿，然后去环游世界。</p>
+<p>选择scikit-learn，是因为python已经成为事实上的数据分析和挖掘的语言，是很多数据科学家的首选。而且scikit-learn还可以与Spark集成，感谢Databricks的工程师。</p>
+<p>参考：<a href="https://databricks.com/blog/2016/02/08/auto-scaling-scikit-learn-with-apache-spark.html" target="_blank" rel="external">Auto-scaling scikit-learn with Apache Spark</a></p>
+<p>俗话说：兵马未动粮草先行。要学习scikit-learn，首先需要有数据。作为学习，Scikit-learn提供了三种方式获取数据。</p>
+<h1 id="内部自带的数据"><a href="#内部自带的数据" class="headerlink" title="内部自带的数据"></a>内部自带的数据</h1><p>scikit-learn包自带的数据在datasets模块当中。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> datasets</div><div class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</div></pre></td></tr></table></figure>
+<p>在IPython中，通过输入datasets.*?会列出datasets包含的所有API。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">boston = d.load_boston()</div><div class="line">print(boston.DESCR)</div></pre></td></tr></table></figure>
+<p>内部数据的接口用：datasets.load_*?()</p>
+<h1 id="外部数据"><a href="#外部数据" class="headerlink" title="外部数据"></a>外部数据</h1><p>datasets模块也包含了API获取外部的数据。这些API以 fetch_*? 开头。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">housing = datasets.fetch_california_housing()</div></pre></td></tr></table></figure>
+<h1 id="造数据"><a href="#造数据" class="headerlink" title="造数据"></a>造数据</h1><p>除了已有的数据，scikit-learn还提供了丰富的API来生成少量的数据。</p>
+<p>这些接口都以datasets.make_*?开头。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">datasets.make_regression(<span class="number">1000</span>,<span class="number">10</span>,<span class="number">5</span>,<span class="number">2</span>,<span class="number">1.0</span>)</div></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+  
+  <div class="tags">
+    <a href="/tags/python/">python</a>, <a href="/tags/scikit-learn/">scikit-learn</a>, <a href="/tags/机器学习/">机器学习</a>
+  </div>
+
+        
+  <div class="addthis addthis_toolbox addthis_default_style">
+    
+      <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+    
+    
+      <a class="addthis_button_tweet"></a>
+    
+    
+      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    
+    
+      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">留言</h1>
+
+  
+      <div id="fb-root"></div>
+<script>
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=123456789012345";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<div class="fb-comments" data-href="http://justquant.github.io/2016/11/22/scikitleanr-preparing-data/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
+      
+  
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="搜索">
+    <input type="hidden" name="q" value="site:justquant.github.io">
+  </form>
+</div>
+
+  
+
+  
+<div class="widget tag">
+  <h3 class="title">标签</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/MACD/">MACD</a><small>0</small></li>
+  
+    <li><a href="/tags/Resource/">Resource</a><small>1</small></li>
+  
+    <li><a href="/tags/Spark/">Spark</a><small>2</small></li>
+  
+    <li><a href="/tags/Tool/">Tool</a><small>1</small></li>
+  
+    <li><a href="/tags/python/">python</a><small>1</small></li>
+  
+    <li><a href="/tags/scikit-learn/">scikit-learn</a><small>1</small></li>
+  
+    <li><a href="/tags/机器学习/">机器学习</a><small>1</small></li>
+  
+    <li><a href="/tags/股票/">股票</a><small>0</small></li>
+  
+  </ul>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2016 Justquant
+  
+</div>
+<div class="clearfix"></div></footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>
