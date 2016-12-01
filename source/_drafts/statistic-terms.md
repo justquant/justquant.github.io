@@ -9,7 +9,6 @@ tags:
 
 # 统计学术语
 
-
 ## 方差和标准差
 
 方差(Variance): 是值一组数据相对于期望值的差的平方的平均数。
@@ -21,6 +20,22 @@ tags:
 例如一组平均身高是160cm，方差为100cm， 标准差就是10cm， 我们可以这样描述这一组人身高的分布：160cm +- 10cm
 
 有一篇博客写的比较好：http://www.lifelaf.com/blog/?p=765
+
+## 协方差
+
+协方差和方差的概念类似。方差是针对一维矢量的运算，而协方差是针对二维矢量的。其公式为：
+
+
+参考资料：
+
+http://www.360doc.com/content/14/0526/06/15831056_380900310.shtml
+http://dataunion.org/13702.html
+
+## 特征向量与特征值
+
+参考资料：
+
+http://course.tjau.edu.cn/xianxingdaishu/jiao/5.htm
 
 ## 标准分数
 
@@ -40,3 +55,13 @@ http://baike.baidu.com/item/%E6%A0%87%E5%87%86%E5%88%86%E6%95%B0/1694868?fr=alad
 http://baike.baidu.com/link?url=VxjEiEVtl5fZX-AhWqc-AtJFWw9Wz3Q-Qr5YwzmK0uWls-QHgDfXEAE7F8Qw5A5P
 
 ## 主成分分析（principal components analysis，PCA）
+
+
+
+
+
+
+
+其它参考资料：
+
+关于公式的语法：http://www.onemathematicalcat.org/MathJaxDocumentation/TeXSyntax.htm

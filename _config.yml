@@ -72,3 +72,14 @@ deploy:
   repo: https://github.com/justquant/justquant.github.io.git
   branch: master
   message: "Site updated: {{ now('YYYY-MM-DD HH:mm:ss') }}"
+
+# MathJax hexo plugin
+## https://github.com/akfish/hexo-math
+# by default, it is not needed to adjust config. but if you have to, change the custom_js_source/custom_css_source to the real url
+# math:
+#   engine: 'katex' # or 'katex'
+#   katex:
+#     css: custom_css_source
+#     js: custom_js_source # not used
+#     config:
+#       # KaTeX config
