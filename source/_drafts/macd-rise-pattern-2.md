@@ -1,6 +1,8 @@
 ---
 title: MACD起涨模式2 - MACD靠近0轴金叉
-tags: macd
+tags: 
+  - 股票
+  - MACD
 ---
 ## 形态解读
 
